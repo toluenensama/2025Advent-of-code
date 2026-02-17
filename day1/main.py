@@ -1,4 +1,6 @@
 
+with open("day1.txt","r") as file:
+    figures = [line.rstrip('\n') for line in file.readlines()]
 
 example = ["L68","L30","R48","L5","R60","L55","L1","L99","R14","L82"]
 init_val = 50
@@ -9,17 +11,27 @@ def parse(text: str):
     return (action,steps)
 
 def l_movement(init_val: int,steps: int):
-    current_val = (init_val - steps) % 100
+    current_val = (init_val - steps) 
+    # current_val = (init_val - steps) % 100 
+    for i in range(init_val,current_val + 1):
+        if i == 0 or i % 100 == 0:
+            aux_dail.append(i)
+            
+
     return current_val
 
 def r_movement(init_val: int,steps: int):
-    current_val = (init_val + steps) % 100
+    current_val = (init_val + steps)
+    # current_val = (init_val + steps) % 100
+    for i in range(init_val,current_val + 1):
+        if i == 0 or i % 100 == 0:
+            aux_dail.append(i)
     return current_val
 
-
+aux_dail = []
 a = 0
 dails :list = []
-for i in example:
+for i in figures:
     action = parse(i)
     direction = action[0]
     steps = action[1]
@@ -32,22 +44,16 @@ for i in example:
         dails.append(current)
         init_val = current
     
-print(dails)
+
 print(dails.count(0))
+passed_zero = [i for i in dails if i > 99 or i <= 0]
 
-# i = 0
-# while i < len(example):    
-#     action = parse(example[i])
-#     if action[0] == "L":
-#         fin_val = normalizer(l_movement(action[1]))
-#         print(fin_val)
-#     else:
-#         fin_val = normalizer(r_movement(action[1]))
-#         print(fin_val)
+print(len(passed_zero))
 
-#     i += 1
+# more_passed = [i == 1 for i in passed_zero if i >= 99 or i <= -99 else i = abs(i//99)]
+more_passed = [abs(i // 100) if (i > 99 or i < -99) else 1 for i in passed_zero]
 
-#     if i > len(example):
-#         print(fin_val)
-#     else:
-#         init_val = fin_val
+print(sum(more_passed))
+print(len(aux_dail))
+print(aux_dail)
+
